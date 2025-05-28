@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Disease Classification</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" {{url_for('static' , filename='bootss1.css')}}>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif; /* Use a consistent font */
+        }
+        .container {
+            margin-top: 50px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-image: url("/static/images/background.jpg");
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 1.5em;
+            color: #007bff; /* Bootstrap primary color */
+        }
+        .upload-area {
+            border: 2px dashed #007bff; /* Bootstrap primary color */
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .tab-content {
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        /* Tab backgrounds */
+        .project-details {
+            background-image: url("url_for('static',filename = 'images/background.jpg')"); /* Correct this path if necessary */
+            background-size: cover;
+            color: rgba(255, 255, 255, 0.9);
+            position: relative;
+            padding: 20px;
+        }
+        .company-details {
+            background-image: url('D:\coding\python\my projects\plant disease\application\static\images\background.jpg'); /* Correct this path if necessary */
+            background-size: cover;
+            color: rgba(10, 0, 0, 0.9);
+            position: relative;
+            padding: 20px;
+        }
+        /* Overlay for better readability */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5); /* Dark overlay for contrast */
+            border-radius: 10px;
+            z-index: 1; /* Ensure overlay is above the background */
+        }
+        /* Logo */
+        .logo {
+            display: block;
+            margin: 0 auto;
+            width: 150px; /* Adjust the size of the logo */
+        }
+        #project{
+            color:blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src= {{url_for('static',filename='images/logo.png')}} alt="Company Logo" class="logo"> <!-- Update this path for your logo -->
+        <h1 class="text-center">Plant Disease Classification</h1>
+        <p class="text-center">Upload a plant leaf image to classify its disease.</p>
+
+        <!-- Navigation Tabs -->
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Classifier</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="project-tab" data-toggle="tab" href="#project" role="tab" aria-controls="project" aria-selected="false">Project Details</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="company-tab" data-toggle="tab" href="#company" role="tab" aria-controls="company" aria-selected="false">Company Details</a>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <form method="POST" enctype="multipart/form-data" id="upload-form">
+                    <div class="form-group upload-area">
+                        <label for="image" style="font-weight: bold;">Select Image</label>
+                        <input type="file" class="form-control-file" name="image" accept="image/*" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Classify</button>
+                </form>
+                
+                {% if prediction %}
+                    <div class="result text-center">
+                        <h2>Prediction: {{ prediction }}</h2>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="tab-pane fade project-details" id="project" role="tabpanel" aria-labelledby="project-tab">
+                
+                <h2>Project Details</h2>
+                <p>This project aims to classify plant diseases using deep learning techniques. The model has been trained on various plant leaf images and can detect diseases accurately.</p>
+                <p>Key Features:</p>
+                <ul>
+                    <li>High accuracy in disease classification</li>
+                    <li>User-friendly interface for image upload</li>
+                    <li>Real-time classification results</li>
+                </ul>
+            </div>
+
+            <div class="tab-pane fade company-details" id="company" role="tabpanel" aria-labelledby="company-tab">
+                
+                <h2>Company Details</h2>
+                <p>Welcome to CCA RND! We specialize in agricultural technology, focusing on providing solutions for farmers to monitor and manage plant health.</p>
+                <p>Contact us:</p>
+                <p>Email: info@yourcompany.com</p>
+                <p>Phone: +91 111111111</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // This script ensures that the tab navigation works correctly
+        $(document).ready(function() {
+            $('#myTab a').on('click', function (e) {
+                e.preventDefault();
+                $(this).tab('show');
+            });
+        });
+    </script>
+</body>
+</html>
